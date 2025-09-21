@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>月全食动画模拟</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #000011, #000033);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        #canvas-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        input[type="range"] {
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        #info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .phase-indicator {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #FFD700;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container">
+        <div id="controls">
+            <h3>月全食控制面板</h3>
+
+            <div class="control-group">
+                <label>动画速度:</label>
+                <input type="range" id="speedControl" min="0.1" max="5" step="0.1" value="1">
+                <span id="speedValue">1.0x</span>
+            </div>
+
+            <div class="control-group">
+                <label>月球轨道进度:</label>
+                <input type="range" id="phaseControl" min="0" max="360" step="1" value="0">
+                <span id="phaseValue">0°</span>
+            </div>
+
+            <div class="control-group">
+                <label>轨道倾斜角:</label>
+                <input type="range" id="inclinationControl" min="0" max="10" step="0.1" value="5">
+                <span id="inclinationValue">5°</span>
+            </div>
+
+            <div class="control-group">
+                <button id="playPause">暂停</button>
+                <button id="reset">重置</button>
+                <button id="fullEclipse">跳转到全食</button>
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <input type="checkbox" id="showOrbits" checked> 显示轨道
+                </label>
+                <label>
+                    <input type="checkbox" id="showLabels" checked> 显示标签
+                </label>
+            </div>
+        </div>
+
+        <div id="info">
+            <div><strong>月全食模拟器</strong></div>
+            <div>月球轨道倾斜5°，只有在交点附近才会发生月食</div>
+            <div>月全食时月球呈红色（大气折射效应）</div>
+            <div class="phase-indicator" id="eclipsePhase">准备阶段</div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
